@@ -33,18 +33,41 @@ void SolveChallenge3()
 		assert(ULLONG_MAX - evaluated_muls[i] > sum);
 
 		sum += evaluated_muls[i];
-
-
 	}
 
 #ifdef TEST
 	assert(sum == 161);
 #endif 
 
-	std::cout << "Challenge " << CHALLENGE << " part1: The sum of the evaluted muls is " << sum << "\n";
+	std::cout << "Challenge " << CHALLENGE << " part1: The sum of the evaluted muls is " << sum << "\n\n";
+
+	// Part 2:	
+	muls = std::vector<std::string>();
+	muls = ExtractMulsRespectDoAndDontCommands(input);
+
+#ifdef TEST
+	assert(TestExtractMulsRespectDoAndDontCommands());
+#endif 
+
+	evaluated_muls = std::vector<int>();
+	evaluated_muls.resize(muls.size());
+	std::transform(muls.begin(), muls.end(), evaluated_muls.begin(), EvaluateMul);
+
+	// Sum the evaluted muls to get the answerb
+	sum = 0;
+	for (int i = 0; i < evaluated_muls.size(); i++)
+	{
+		assert(sum < ULLONG_MAX / 10);
+		assert(ULLONG_MAX - evaluated_muls[i] > sum);
+
+		sum += evaluated_muls[i];
+	}
+
+	std::cout << "Challenge " << CHALLENGE << " part2: The sum of the evaluate muls, which respect the do command, is " << sum << "\n";
 
 	return;
 }
+
 
 void LoadChallenge3Input(std::string& input, const std::string input_file)
 {
@@ -290,6 +313,66 @@ bool TestEvaluateMul()
 	for (int i = 0; i < actual.size(); i++)
 	{
 		if (actual[i] != expected[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+std::vector<std::string> ExtractMulsRespectDoAndDontCommands(const std::string& input)
+{
+	const std::string minimal_mul = "mul(1,1)";
+	const std::string do_command = "do()";
+	const std::string dont_command = "don't()";
+
+	std::vector<std::string> muls_to_do = std::vector<std::string>();
+
+	int offset = 0;
+
+	while (offset < input.size())
+	{
+		int dont_index = input.find(dont_command, offset);
+
+		
+		std::string relevant_section = input.substr(offset, dont_index - offset);
+		muls_to_do.push_back(relevant_section);
+
+		offset = input.find(do_command, dont_index);
+	}
+
+	std::vector<std::string> muls;
+	for (std::string to_do : muls_to_do)
+	{
+		std::vector<std::string> new_muls = ExtractMuls(to_do);
+		muls.insert(muls.end(), new_muls.begin(), new_muls.end());
+	}
+
+	return muls;
+}
+
+bool TestExtractMulsRespectDoAndDontCommands()
+{
+	const std::string input = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+
+	std::vector<std::string> expected =
+	{
+		"mul(2,4)",
+		"mul(8,5)"
+	};
+
+	std::vector<std::string> muls = ExtractMulsRespectDoAndDontCommands(input);
+
+
+	if (muls.size() != expected.size())
+	{
+		return false;
+	}
+
+	for (int i = 0; i < muls.size(); i++)
+	{
+		if (muls[i] != expected[i])
 		{
 			return false;
 		}
