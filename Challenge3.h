@@ -18,4 +18,8 @@
 
 void SolveChallenge3();
 
+void LoadChallenge3Input(std::string& input, const std::string input_file);
+std::vector<std::string> ExtractMuls(const std::string& input);
+bool IsValidMul(const std::string& candidate);
+int EvaluateMul(const std::string& mul);
 #endif 
