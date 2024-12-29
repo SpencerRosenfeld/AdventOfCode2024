@@ -17,6 +17,7 @@ void SolveChallenge3()
 
 #ifdef TEST
 	assert(muls.size() == 4);
+	assert(TestEvaluateMul());
 #endif 
 
 	std::vector<int> evaluated_muls = std::vector<int>();
@@ -28,7 +29,12 @@ void SolveChallenge3()
 	unsigned long long sum = 0;
 	for (int i = 0; i < evaluated_muls.size(); i++)
 	{
+		assert(sum < ULLONG_MAX / 10);
+		assert(ULLONG_MAX - evaluated_muls[i] > sum);
+
 		sum += evaluated_muls[i];
+
+
 	}
 
 #ifdef TEST
@@ -229,15 +235,15 @@ int EvaluateMul(const std::string& mul)
 	int x1 = 0;
 	int x2 = 0;
 
-	int* px = &x1;
+	int* px = &x2;
 
 	int powerOfTen = 1;
 
-	for (int i = lparen_index + 1; i < rparen_index; i++)
+	for (int i = rparen_index-1; i > lparen_index; i--)
 	{
 		if (mul[i] == ',')
 		{
-			px = &x2;
+			px = &x1;
 			powerOfTen = 1;
 		}
 		else
@@ -252,4 +258,42 @@ int EvaluateMul(const std::string& mul)
 	px = nullptr;
 
 	return x1 * x2;
+}
+
+bool TestEvaluateMul()
+{
+	std::vector<std::string> inputs =
+	{
+		"mul(999,999)",
+		"mul(1,1)",
+		"mul(10,20)",
+		"mul(250,2)",
+		"mul(2,250)"
+	};
+
+	std::vector<int> expected =
+	{
+		999 * 999,
+		1 * 1,
+		10 * 20,
+		250 * 2,
+		2 * 250
+	};
+
+	std::vector<int> actual;
+	actual.resize(inputs.size());
+
+	std::transform(inputs.begin(), inputs.end(), actual.begin(), EvaluateMul);
+
+	assert(actual.size() == expected.size());
+
+	for (int i = 0; i < actual.size(); i++)
+	{
+		if (actual[i] != expected[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
