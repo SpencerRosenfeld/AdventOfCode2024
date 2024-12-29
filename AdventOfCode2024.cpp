@@ -6,7 +6,7 @@
 
 #include "Challenge1.h"
 #include "Challenge2.h"
-
+#include "Challenge3.h"
 
 void Solve();
 
@@ -21,10 +21,13 @@ int main()
 
 void Solve()
 {
+    
 #if CHALLENGE == 1
     SolveChallenge1();
 #elif CHALLENGE == 2
     SolveChallenge2();
+#elif CHALLENGE == 3
+    SolveChallenge3();
 #endif 
 }
 
