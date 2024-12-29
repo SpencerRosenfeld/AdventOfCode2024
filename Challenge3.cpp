@@ -25,7 +25,7 @@ void SolveChallenge3()
 	std::transform(muls.begin(), muls.end(), evaluated_muls.begin(), EvaluateMul);
 	
 	// Sum the evaluted muls to get the answerb
-	int sum = 0;
+	unsigned long long sum = 0;
 	for (int i = 0; i < evaluated_muls.size(); i++)
 	{
 		sum += evaluated_muls[i];
@@ -47,9 +47,12 @@ void LoadChallenge3Input(std::string& input, const std::string input_file)
 
 	assert(file);
 
+	std::string line = "";
 	while (file)
 	{
-		file >> input;
+		line = "";
+		file >> line;
+		input += line;
 	}
 
 	file.close();
