@@ -228,11 +228,11 @@ int CountInstancesOfPatternsInGrid(const std::vector<std::vector<char>>& grid, c
 		
 		for (int x = 0; x < grid_width; x++)
 		{
-			if (x + pattern_width < grid_width)
+			if (x + pattern_width-1 < grid_width)
 			{
 				for (int y = 0; y < grid_height; y++)
 				{
-					if (y + pattern_height < grid_height)
+					if (y + pattern_height-1 < grid_height)
 					{
 						bool match = true;
 						for (int delta_x = 0; delta_x < pattern_width; delta_x++)
