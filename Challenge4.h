@@ -20,6 +20,8 @@ void SolveChallenge4();
 
 std::vector<std::vector<char>> LoadInputFile(const std::string& input_file);
 
+int CountWordInGrid(const std::vector<std::vector<char>>& grid, const std::string& word);
+
 static const std::string keyword = "XMAS";
 
 #endif 

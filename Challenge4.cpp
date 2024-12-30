@@ -10,6 +10,14 @@ void SolveChallenge4()
 
 	std::vector<std::vector<char>> grid = LoadInputFile(input_file);
 
+	int count = CountWordInGrid(grid, keyword);
+
+#ifdef TEST
+	assert(count == 18);
+#endif 
+
+	std::cout << "Challenge 4 part 1:\nThe number of instances of " << keyword << " in the input grid is " << count << "\n\n"; 
+
 	return;
 }
 
@@ -22,20 +30,35 @@ std::vector<std::vector<char>> LoadInputFile(const std::string& input_file)
 
 	std::vector<std::vector<char>> grid = std::vector<std::vector<char>>();
 
-	std::vector<char> line = std::vector<char>(); 
+//	std::vector<char> line = std::vector<char>(); 
+	std::string line = "";
+	int line_index = 0;
 	char c = 0;
 	while (file)
 	{
-		file >> c; 
-		
-		if (c == '\n')
+		//file >> c; 
+		//	
+		//if (c == '\n')
+		//{
+		//	grid.push_back(line);
+		//	line = std::vector<char>();
+		//}
+		//else
+		//{
+		//	line.push_back(c);
+		//}
+
+		line = "";
+		std::getline(file, line);
+
+		if (line != "")
 		{
-			grid.push_back(line);
-			line = std::vector<char>();
-		}
-		else
-		{
-			line.push_back(c);
+			grid.push_back(std::vector<char>());
+			for (int i = 0; i < line.length(); i++)
+			{
+				grid[line_index].push_back(line[i]);
+			}
+			line_index++;
 		}
 	}
 
@@ -58,8 +81,8 @@ bool FindLetterAroundPointInGrid( const std::vector<std::vector<char>>& grid, co
 	x_letter = std::vector<int>();
 	y_letter = std::vector<int>();
 
-	std::vector<int> x_neighboring_points = { x + 1, x + 1, x, x - 1, x - 1, x - 1, x, x + 1 };
-	std::vector<int> y_neighboring_points = { y, y + 1, y + 1, y + 1, y, y - 1, y - 1, y - 1 };
+	const std::vector<int> x_neighboring_points = { x + 1, x + 1, x, x - 1, x - 1, x - 1, x, x + 1 };
+	const std::vector<int> y_neighboring_points = { y, y + 1, y + 1, y + 1, y, y - 1, y - 1, y - 1 };
 
 	assert(x_neighboring_points.size() == y_neighboring_points.size());
 
@@ -107,4 +130,79 @@ bool FindAllInstancesOfLetterInGrid(const std::vector<std::vector<char>>& grid, 
 
 	return letter_found;
 		
+}
+
+int CountWordInGrid(const std::vector<std::vector<char>>& grid, const std::string& word)
+{
+	assert(word.length() > 3);
+
+	const int width = grid.size();
+	const int height = grid[0].size();
+
+	std::vector<int> x;
+	std::vector<int> y;
+
+	bool succuess = FindAllInstancesOfLetterInGrid(grid, word[0], x, y);
+
+	assert(x.size() == y.size());
+
+	if (!succuess)
+	{
+		return 0;
+	}
+
+	char second_letter = word[1];
+
+	std::vector<std::vector<int>> x2 = std::vector<std::vector<int>>();
+	std::vector<std::vector<int>> y2 = std::vector<std::vector<int>>();
+
+
+	for (int j = 0; j < x.size(); j++)
+	{
+		std::vector<int> xp = std::vector<int>();
+		std::vector<int> yp = std::vector<int>();
+
+		FindLetterAroundPointInGrid(grid, second_letter, x[j], y[j], xp, yp);
+
+		assert(yp.size() == xp.size());
+		x2.push_back(xp);
+		y2.push_back(yp);
+	}
+
+	int count = 0;
+	for (int i = 0; i < x.size(); i++)
+	{
+		for (int j = 0; j < x2[i].size(); j++)
+		{
+			int delta_x = x2[i][j] - x[i];
+			int delta_y = y2[i][j] - y[i];
+
+			bool word_is_present = true;
+			for (int k = 0; k < word.length(); k++)
+			{
+				int xk = x[i] + delta_x * k;
+				int yk = y[i] + delta_y * k; 
+
+				if (xk >= 0 && xk < width && yk >= 0 && yk < height)
+				{
+					if (grid[xk][yk] != word[k])
+					{
+						word_is_present = false;
+						break;
+					}
+				}
+				else
+				{
+					word_is_present = false;
+					break;
+				}
+			}
+
+			if (word_is_present == true)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
 }
