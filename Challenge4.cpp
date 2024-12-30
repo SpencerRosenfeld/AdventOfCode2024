@@ -18,6 +18,14 @@ void SolveChallenge4()
 
 	std::cout << "Challenge 4 part 1:\nThe number of instances of " << keyword << " in the input grid is " << count << "\n\n"; 
 
+// Part 2 -------------------------------------------------------------
+	count = CountInstancesOfPatternsInGrid(grid, patterns);
+	
+#ifdef TEST
+	assert(count == 9);
+#endif 
+
+	std::cout << "Challenge 4 part 2:\nThe number of X-MAS's in the grid is " << count << "\n";
 	return;
 }
 
@@ -201,6 +209,64 @@ int CountWordInGrid(const std::vector<std::vector<char>>& grid, const std::strin
 			if (word_is_present == true)
 			{
 				count++;
+			}
+		}
+	}
+	return count;
+}
+
+int CountInstancesOfPatternsInGrid(const std::vector<std::vector<char>>& grid, const std::vector<std::vector<std::vector<char>>>& patterns)
+{
+	const int grid_width = grid.size();
+	const int grid_height = grid[0].size();
+
+	int count = 0;
+	for (auto pattern : patterns)
+	{
+		const int pattern_width = pattern.size();
+		const int pattern_height = pattern[0].size();
+		
+		for (int x = 0; x < grid_width; x++)
+		{
+			if (x + pattern_width < grid_width)
+			{
+				for (int y = 0; y < grid_height; y++)
+				{
+					if (y + pattern_height < grid_height)
+					{
+						bool match = true;
+						for (int delta_x = 0; delta_x < pattern_width; delta_x++)
+						{
+							for (int delta_y = 0; delta_y < pattern_height; delta_y++)
+							{
+								if (pattern[delta_x][delta_y] != 0)
+								{
+									if (grid[x + delta_x][y + delta_y] != pattern[delta_x][delta_y])
+									{
+										match = false;
+										break;
+									}
+								}
+							}
+							if (match == false)
+							{
+								break;
+							}
+						}
+						if (match == true)
+						{
+							count++;
+						}
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+			else
+			{
+				break;
 			}
 		}
 	}
