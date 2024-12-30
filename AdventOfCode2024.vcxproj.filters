@@ -22,6 +22,9 @@
     <Filter Include="Resource Files\3">
       <UniqueIdentifier>{ed9fc988-37c3-4adb-a174-0a05ff09e515}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\4">
+      <UniqueIdentifier>{645546e7-c687-45b0-aa33-8c87e0e89cfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCode2024.cpp">
@@ -34,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Challenge3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Challenge4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,6 +62,12 @@
     <Text Include="3\test_input.txt">
       <Filter>Resource Files\3</Filter>
     </Text>
+    <Text Include="4\input.txt">
+      <Filter>Resource Files\4</Filter>
+    </Text>
+    <Text Include="4\test_input.txt">
+      <Filter>Resource Files\4</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Challenge1.h">
@@ -71,6 +83,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Challenge3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Challenge4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

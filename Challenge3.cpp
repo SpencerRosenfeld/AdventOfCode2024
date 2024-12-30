@@ -1,5 +1,6 @@
 #include "Challenge3.h"
 
+#if CHALLENGE == 3
 void SolveChallenge3()
 {
 #ifdef TEST
@@ -380,3 +381,4 @@ bool TestExtractMulsRespectDoAndDontCommands()
 
 	return true;
 }
+#endif 

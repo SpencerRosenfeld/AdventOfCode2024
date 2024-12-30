@@ -143,6 +143,7 @@
     <ClCompile Include="Challenge1.cpp" />
     <ClCompile Include="Challenge2.cpp" />
     <ClCompile Include="Challenge3.cpp" />
+    <ClCompile Include="Challenge4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="1\input.txt" />
@@ -151,12 +152,15 @@
     <Text Include="2\test_input.txt" />
     <Text Include="3\input.txt" />
     <Text Include="3\test_input.txt" />
+    <Text Include="4\input.txt" />
+    <Text Include="4\test_input.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildConfig.h" />
     <ClInclude Include="Challenge1.h" />
     <ClInclude Include="Challenge2.h" />
     <ClInclude Include="Challenge3.h" />
+    <ClInclude Include="Challenge4.h" />
     <ClInclude Include="input_files.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

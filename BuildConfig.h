@@ -1,3 +1,3 @@
 #pragma once
-//#define TEST
-#define CHALLENGE 3
+#define TEST
+#define CHALLENGE 4
