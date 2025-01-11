@@ -8,6 +8,7 @@ static std::string input_files[] =
     "../2/input.txt",
     "../3/input.txt",
     "../4/input.txt",
+    "../5/input.txt",
 };
 
 static std::string test_input_files[] =
@@ -17,4 +18,5 @@ static std::string test_input_files[] =
     "../2/test_input.txt",
     "../3/test_input.txt",
     "../4/test_input.txt",
+    "../5/test_input.txt",
 };

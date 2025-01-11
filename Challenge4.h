@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "BuildConfig.h"
 #if CHALLENGE == 4
 #include <vector>

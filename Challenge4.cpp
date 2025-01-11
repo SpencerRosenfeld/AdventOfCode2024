@@ -1,4 +1,5 @@
 #include "Challenge4.h"
+#if CHALLENGE == 4
 
 void SolveChallenge4()
 {
@@ -272,3 +273,4 @@ int CountInstancesOfPatternsInGrid(const std::vector<std::vector<char>>& grid, c
 	}
 	return count;
 }
+#endif 

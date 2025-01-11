@@ -8,6 +8,7 @@
 #include "Challenge2.h"
 #include "Challenge3.h"
 #include "Challenge4.h"
+#include "Challenge5.h"
 
 void Solve();
 
@@ -31,7 +32,10 @@ void Solve()
     SolveChallenge3();
 #elif CHALLENGE == 4
     SolveChallenge4();
+#elif CHALLENGE == 5
+    SolveChallenge5();
 #endif 
+
 }
 
 
